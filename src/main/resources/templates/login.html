@@ -3,9 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
 </head>
-<body>
-<a href="/">Home</a>
-<h1>login</h1>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/home">Drive</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse show navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav w-100 justify-content-center align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container pt-5">
+    <h1>login</h1>
+    <div class="showing position-fixed bottom-0 end-0 m-3 toast align-items-center" th:unless="${message == null}" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex alert alert-success m-0">
+            <div class="toast-body" th:text="${message}">
+                Notification!
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+    <div class="showing position-fixed bottom-0 end-0 m-3 toast align-items-center" th:unless="${error == null}" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex alert alert-danger m-0">
+            <div class="toast-body" th:text="${error}">
+                Notification!
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+    <form method="POST" action="#" th:action="@{/login}">
+        <div class="mb-3 form-group">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" id="username" placeholder="Username">
+        </div>
+        <div class="mb-3 form-group">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="******">
+        </div>
+        <button type="submit" class="btn btn-success">Login</button>
+    </form>
+</div>
 </body>
 </html>

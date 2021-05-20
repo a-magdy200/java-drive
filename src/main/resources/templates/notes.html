@@ -5,15 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-<form action="#" th:action="@{/notes}" method="POST">
-    <input type="text" name="note" />
+<form action="#" th:action="@{/notes}" th:object="${noteForm}" method="POST">
+    <input type="text" th:field="*{title}" />
+    <textarea th:field="*{description}"></textarea>
     <button type="submit">Add</button>
 </form>
-<ul>
-    <li th:each="note : ${notes}">
-        <span th:text="${note.text}"></span>
-        <button type="button">delete</button>
-    </li>
-</ul>
+<table>
+    <tr th:each="note : ${notes}">
+        <td th:text="${note.title}"></td>
+        <td th:text="${note.description}"></td>
+        <td><a th:href="@{'/notes/'+${note.noteId}+'/delete'}">Delete</a></td>
+    </tr>
+</table>
 </body>
 </html>

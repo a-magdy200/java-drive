@@ -3,7 +3,7 @@ package org.anchorz.java_drive.models;
 public class SignUpForm {
     private String firstname;
     private String lastname;
-    private String email;
+    private String username;
     private String password;
     private String confirmPassword;
 
@@ -23,12 +23,12 @@ public class SignUpForm {
         this.lastname = lastname;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -49,7 +49,7 @@ public class SignUpForm {
     public void clearForm() {
         this.firstname = "";
         this.lastname = "";
-        this.email = "";
+        this.username = "";
         this.password = "";
         this.confirmPassword = "";
     }

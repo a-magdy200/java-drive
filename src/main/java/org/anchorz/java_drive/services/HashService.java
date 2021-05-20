@@ -1,20 +1,26 @@
 package org.anchorz.java_drive.services;
 
-import org.anchorz.java_drive.models.Note;
-import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
 
-@Service
+@Component
 public class HashService {
+    private Logger logger = LoggerFactory.getLogger(HashService.class);
+    public String getEncodedSalt() {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+        return Base64.getEncoder().encodeToString(salt);
+    }
     public String getHashedValue(String data, String salt) {
         byte[] hashedValue = null;
 
@@ -23,6 +29,7 @@ public class HashService {
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
             hashedValue = factory.generateSecret(spec).getEncoded();
         } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+            logger.error(e.getMessage());
         }
 
         return Base64.getEncoder().encodeToString(hashedValue);

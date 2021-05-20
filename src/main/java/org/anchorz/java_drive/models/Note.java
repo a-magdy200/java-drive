@@ -1,22 +1,40 @@
 package org.anchorz.java_drive.models;
 
 public class Note {
-    private String text;
-    private int user_id;
-
-    public String getText() {
-        return text;
+    private String title;
+    private String description;
+    private int userId;
+    private int noteId;
+    public String getTitle() {
+        return title;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public String getDescription() {
+        return description;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    public int getNoteId() {
+        return noteId;
+    }
+
+    public void setNoteId(int noteId) {
+        this.noteId = noteId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

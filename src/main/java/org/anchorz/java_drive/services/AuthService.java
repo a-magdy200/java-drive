@@ -1,26 +1,37 @@
 package org.anchorz.java_drive.services;
 
 import org.anchorz.java_drive.mappers.UserMapper;
+import org.anchorz.java_drive.models.SignUpForm;
 import org.anchorz.java_drive.models.UserProfile;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Base64;
 
 @Service
-public class AuthenticationService implements AuthenticationProvider {
-    private UserMapper userMapper;
-    private HashService hashService;
+public class AuthService implements AuthenticationProvider {
+    private final UserMapper userMapper;
+    private final HashService hashService;
 
-    public AuthenticationService(UserMapper userMapper, HashService hashService) {
+    public AuthService(UserMapper userMapper, HashService hashService) {
         this.userMapper = userMapper;
         this.hashService = hashService;
     }
-
-    public UsernamePasswordAuthenticationToken authenticate(Authentication authentication) throws AuthenticationException {
+    public boolean usernameIsAvailable(String username) {
+        return userMapper.getUser(username) == null;
+    }
+    public int createUser(SignUpForm user) {
+        String encodedSalt = hashService.getEncodedSalt();
+        String hashedPassword = hashService.getHashedValue(user.getPassword(), encodedSalt);
+        return userMapper.insert(new UserProfile(null, user.getUsername(), encodedSalt, hashedPassword, user.getFirstname(), user.getLastname()));
+    }
+    @Override
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
 
@@ -29,15 +40,10 @@ public class AuthenticationService implements AuthenticationProvider {
             String encodedSalt = user.getSalt();
             String hashedPassword = hashService.getHashedValue(password, encodedSalt);
             if (user.getPassword().equals(hashedPassword)) {
-                return new UsernamePasswordAuthenticationToken(username, password, new ArrayList<>());
+                return new UsernamePasswordAuthenticationToken(user.getUserId(), password, new ArrayList<>());
             }
         }
 
-        return null;
-    }
-
-    @Override
-    public org.springframework.security.core.Authentication authenticate(org.springframework.security.core.Authentication authentication) throws AuthenticationException {
         return null;
     }
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/home">Drive</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse show navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav w-100">
+                <li class="nav-item flex-grow-1 text-center">
+                    <a class="nav-link active" aria-current="page" href="#">Super Drive</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container pt-5">
+    <form action="#" th:action="${noteForm.noteId} == 0 ? @{/notes} : @{/notes/} + ${noteForm.noteId} + @{/update}" th:object="${noteForm}" method="POST" class="border-bottom pb-3 mb-3">
+        <div class="mb-3 form-group">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" th:field="*{title}" class="form-control" id="title" placeholder="Todo Title">
+        </div>
+        <div class="mb-3 form-group">
+            <label for="description" class="form-label">Description</label>
+            <textarea th:field="*{description}" class="form-control" id="description" rows="3" placeholder="Todo Description"></textarea>
+        </div>
+        <button class="btn btn-success mx-auto d-block" type="submit" th:text="${noteForm.noteId == 0 ? 'Add':'Edit'}">Save</button>
+    </form>
+</div>
+</body>
+</html>

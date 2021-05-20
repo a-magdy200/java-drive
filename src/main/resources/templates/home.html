@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/home">Drive</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse show navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav w-100">
+                <li class="nav-item flex-grow-1 text-center">
+                    <a class="nav-link active" aria-current="page" href="#">Super Drive</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container pt-5">
+    <div class="showing position-fixed bottom-0 end-0 m-3 toast align-items-center" th:unless="${message == null}" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex alert alert-success m-0">
+            <div class="toast-body" th:text="${message}">
+                Notification!
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+    <div class="showing position-fixed bottom-0 end-0 m-3 toast align-items-center" th:unless="${error == null}" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex alert alert-danger m-0">
+            <div class="toast-body" th:text="${error}">
+                Notification!
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-notes-tab" data-bs-toggle="tab" data-bs-target="#nav-notes" type="button" role="tab" aria-controls="nav-notes" aria-selected="true">Notes</button>
+            <button class="nav-link" id="nav-credentials-tab" data-bs-toggle="tab" data-bs-target="#nav-credentials" type="button" role="tab" aria-controls="nav-credentials" aria-selected="false">Credentials</button>
+            <button class="nav-link" id="nav-files-tab" data-bs-toggle="tab" data-bs-target="#nav-files" type="button" role="tab" aria-controls="nav-files" aria-selected="false">Files</button>
+        </div>
+    </nav>
+    <div class="tab-content pt-3" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-notes" role="tabpanel" aria-labelledby="nav-notes-tab">
+            <div class="d-flex align-items-center justify-content-center py-3">
+                <a href="/notes/add">
+                    <button class="btn btn-success">Add New Note</button>
+                </a>
+            </div>
+            <table class="table table-dark table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="border-0 w-50">Title</th>
+                        <th scope="col" class="border-0 w-100">Description</th>
+                        <th class="border-0" scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="align-middle" th:each="note : ${notes}">
+                        <td class="border-0 w-50" th:text="${note.title}"></td>
+                        <td class="border-0 w-100" th:text="${note.description}"></td>
+                        <td class="border-0 d-flex align-items-center justify-content-center">
+                            <a th:href="@{'/notes/'+${note.noteId}+'/edit'}">
+                                <button class="btn btn-sm m-2 btn-info">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </a>
+                            <a th:href="@{'/notes/'+${note.noteId}+'/delete'}">
+                                <button class="btn btn-sm m-2 btn-danger">
+                                    <span class="material-icons">
+                                        delete_forever
+                                    </span>
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="nav-credentials" role="tabpanel" aria-labelledby="nav-credentials-tab">
+            <div class="d-flex align-items-center justify-content-center py-3">
+                <a href="/credentials/add">
+                   <button class="btn btn-success">Add New Website Credentials</button>
+                </a>
+            </div>
+            <table class="table table-dark table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="border-0 w-25">URL</th>
+                        <th scope="col" class="border-0 w-25">Key</th>
+                        <th scope="col" class="border-0 w-25">Username</th>
+                        <th scope="col" class="border-0 w-25">Password</th>
+                        <th class="border-0" scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="align-middle" th:each="credential : ${credentials}">
+                        <td class="border-0 w-25" th:text="${credential.url}"></td>
+                        <td class="border-0 w-25" th:text="${credential.key}"></td>
+                        <td class="border-0 w-25" th:text="${credential.username}"></td>
+                        <td class="border-0 w-25" th:text="${credential.password}"></td>
+                        <td class="border-0 d-flex align-items-center justify-content-center">
+                            <a th:href="@{'/credentials/'+${credential.credentialId}+'/edit'}">
+                                <button class="btn btn-sm m-2 btn-info">
+                                        <span class="material-icons">
+                                            edit
+                                        </span>
+                                </button>
+                            </a>
+                            <a th:href="@{'/credentials/'+${credential.credentialId}+'/delete'}">
+                                <button class="btn btn-sm m-2 btn-danger">
+                                        <span class="material-icons">
+                                            delete_forever
+                                        </span>
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
+            <form action="#" th:action="@{/files/upload}" method="POST" class="form-inline" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Upload a new file <small>Max. 5MB</small></label>
+                    <input class="form-control" type="file" name="file" id="formFile">
+                </div>
+                <button class="btn btn-success">Upload</button>
+            </form>
+            <h3>Uploaded files</h3>
+            <table class="table table-dark table-hover table-striped">
+                <thead>
+                <tr>
+                    <th scope="col" class="border-0 w-50">Name</th>
+                    <th scope="col" class="border-0 w-25">Type</th>
+                    <th scope="col" class="border-0 w-25">Size</th>
+                    <th class="border-0" scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="align-middle" th:each="file : ${files}">
+                    <td class="border-0 w-50" th:text="${file.name}"></td>
+                    <td class="border-0 w-25" th:text="${file.type}"></td>
+                    <td class="border-0 w-25" th:text="${file.size}"></td>
+                    <td class="border-0 d-flex align-items-center justify-content-center">
+                        <a class="d-block" th:href="@{'/files/'+${file.fileId}+'/download'}">
+                            <button class="btn btn-sm m-2 btn-success">
+                                <span class="material-icons">
+                                    download
+                                </span>
+                            </button>
+                        </a>
+                        <a class="d-block" th:href="@{'/files/'+${file.fileId}+'/delete'}">
+                            <button class="btn btn-sm m-2 btn-danger">
+                                <span class="material-icons">
+                                    delete_forever
+                                </span>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

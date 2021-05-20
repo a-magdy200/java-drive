@@ -1,0 +1,9 @@
+2021-05-20 15:20:28 jdbc[15]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found; SQL statement:
+SELECT * FROM USERS WHERE username = ? [42102-200]
+2021-05-20 15:27:49 jdbc[26]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found; SQL statement:
+SELECT * FROM USERS WHERE username = ? [42102-200]
+2021-05-20 15:29:05 jdbc[26]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found; SQL statement:
+SELECT * FROM USERS WHERE username = ? [42102-200]
