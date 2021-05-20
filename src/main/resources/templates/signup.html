@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/">Home</a>
+<a href="/">Login</a>
+<h1>Signup</h1>
+<form method="POST" action="#" th:action="@{/signup}" th:object="${signUpForm}">
+    <label>
+        First Name
+        <input type="text" th:field="*{firstname}"/>
+    </label>
+    <label>
+        Last Name
+        <input type="text" th:field="*{lastname}"/>
+    </label>
+    <label>
+        Email
+        <input type="email" th:field="*{email}"/>
+    </label>
+    <label>
+        Password
+        <input type="password" th:field="*{password}"/>
+    </label>
+    <label>
+        Confirm Password
+        <input type="password" th:field="*{confirmPassword}"/>
+    </label>
+    <button type="submit">Sign Up</button>
+</form>
+</body>
+</html>
