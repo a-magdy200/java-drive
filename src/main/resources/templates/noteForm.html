@@ -37,7 +37,7 @@
             <label for="description" class="form-label">Description</label>
             <textarea th:field="*{description}" class="form-control" id="description" rows="3" placeholder="Todo Description"></textarea>
         </div>
-        <button class="btn btn-success mx-auto d-block" type="submit" th:text="${noteForm.noteId == 0 ? 'Add':'Edit'}">Save</button>
+        <button class="btn btn-success mx-auto d-block" id="addNoteBtn" type="submit" th:text="${noteForm.noteId == 0 ? 'Add':'Edit'}">Save</button>
     </form>
 </div>
 </body>
