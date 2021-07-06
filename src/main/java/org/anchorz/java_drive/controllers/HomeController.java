@@ -25,9 +25,9 @@ public class HomeController {
         this.noteService = noteService;
         this.credentialService= credentialService;
     }
-    @GetMapping("/")
+    @GetMapping("/" )
     public String getIndex() {
-        return "index";
+        return "redirect:/home";
     }
     @GetMapping("/home")
     public String getHome(Authentication authentication, @ModelAttribute Credential credentialsForm, @ModelAttribute Note noteForm, Model model) {
@@ -44,6 +44,6 @@ public class HomeController {
     }
     @RequestMapping("**")
     public String fallback404() {
-        return "index";
+        return "error";
     }
 }
