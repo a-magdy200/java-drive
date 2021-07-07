@@ -28,10 +28,15 @@ public class RegisterPageTests {
     @FindBy(id = "registerBtn")
     private WebElement registerBtn;
 
+    @FindBy(id = "logoutBtn")
+    private WebElement logoutBtn;
+
     public RegisterPageTests(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
-
+    public void logout() {
+        logoutBtn.click();
+    }
     public void signUp(String username, String password, String firstname, String lastname, String confirmPassword) {
         usernameField.sendKeys(username);
         passwordField.sendKeys(password);

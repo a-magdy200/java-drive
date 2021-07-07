@@ -21,7 +21,7 @@
                     <a class="nav-link active" aria-current="page" href="#">Super Drive</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
+                    <a class="nav-link" href="/logout" id="logoutBtn">Logout</a>
                 </li>
             </ul>
         </div>
@@ -100,18 +100,18 @@
                 <thead>
                     <tr>
                         <th scope="col" class="border-0 w-25">URL</th>
-                        <th scope="col" class="border-0 w-25">Key</th>
+                        <th scope="col" class="border-0 w-50">Key</th>
                         <th scope="col" class="border-0 w-25">Username</th>
-                        <th scope="col" class="border-0 w-25">Password</th>
+<!--                        <th scope="col" class="border-0 w-25">Password</th>-->
                         <th class="border-0" scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="credentials-row align-middle" th:each="credential : ${credentials}">
                         <td class="border-0 w-25" th:text="${credential.url}"></td>
-                        <td class="border-0 w-25" th:text="${credential.key}"></td>
+                        <td class="border-0 w-50" th:text="${credential.key}"></td>
                         <td class="border-0 w-25" th:text="${credential.username}"></td>
-                        <td class="border-0 w-25" th:text="${credential.password}"></td>
+<!--                        <td class="border-0 w-25" th:text="${credential.password}"></td>-->
                         <td class="border-0 d-flex align-items-center justify-content-center">
                             <a th:href="@{'/credentials/'+${credential.credentialId}+'/edit'}">
                                 <button class="btn btn-sm m-2 btn-info">
@@ -138,7 +138,7 @@
                     <label for="formFile" class="form-label">Upload a new file <small>Max. 5MB</small></label>
                     <input class="form-control" type="file" name="file" id="formFile">
                 </div>
-                <button class="btn btn-success">Upload</button>
+                <button disabled class="btn btn-success" id="uploadButton">Upload</button>
             </form>
             <h3>Uploaded files</h3>
             <table class="table table-dark table-hover table-striped">
@@ -177,5 +177,17 @@
         </div>
     </div>
 </div>
+<script>
+    const fileInput = document.getElementById('formFile');
+    const uploadButton = document.getElementById('uploadButton');
+    fileInput.onchange = (e) => {
+      const value = e.target.value;
+      if (value.length) {
+        uploadButton.removeAttribute('disabled');
+      } else {
+        uploadButton.setAttribute('disabled', 'disabled');
+      }
+    }
+</script>
 </body>
 </html>
