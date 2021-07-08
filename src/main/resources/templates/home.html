@@ -68,8 +68,8 @@
                 </thead>
                 <tbody>
                     <tr class="align-middle note-row" th:each="note : ${notes}">
-                        <td class="border-0 w-50" th:text="${note.title}"></td>
-                        <td class="border-0 w-100" th:text="${note.description}"></td>
+                        <td class="border-0 w-50 title" th:text="${note.title}"></td>
+                        <td class="border-0 w-100 description" th:text="${note.description}"></td>
                         <td class="border-0 d-flex align-items-center justify-content-center">
                             <a th:href="@{'/notes/'+${note.noteId}+'/edit'}">
                                 <button class="btn btn-sm m-2 btn-info">
@@ -108,9 +108,9 @@
                 </thead>
                 <tbody>
                     <tr class="credentials-row align-middle" th:each="credential : ${credentials}">
-                        <td class="border-0 w-25" th:text="${credential.url}"></td>
-                        <td class="border-0 w-50" th:text="${credential.key}"></td>
-                        <td class="border-0 w-25" th:text="${credential.username}"></td>
+                        <td class="border-0 url w-25" th:text="${credential.url}"></td>
+                        <td class="border-0 key w-50" th:text="${credential.key}"></td>
+                        <td class="border-0 username w-25" th:text="${credential.username}"></td>
 <!--                        <td class="border-0 w-25" th:text="${credential.password}"></td>-->
                         <td class="border-0 d-flex align-items-center justify-content-center">
                             <a th:href="@{'/credentials/'+${credential.credentialId}+'/edit'}">
